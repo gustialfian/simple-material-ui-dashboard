@@ -2,15 +2,11 @@ import React from "react";
 import {
   Switch,
   Route,
-  Link,
 } from "react-router-dom";
 
 import Admin from "./layout/Admin";
 import Dashboard from "./page/dashboard/Dashboard";
-
-function Login() {
-  return <Link to="/admin/">Dashboard</Link>
-}
+import SignIn from "./page/signIn/SignIn";
 
 export function AppRouter() {
   return (
@@ -21,7 +17,7 @@ export function AppRouter() {
         <DashboardRouter />
       </Route>
       <Route path="/">
-        <Login />
+        <SignIn />
       </Route>
     </Switch>
   )
