@@ -1,3 +1,9 @@
+# TODO:
+1. make 5 pages
+2. 2 nested
+
+---
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

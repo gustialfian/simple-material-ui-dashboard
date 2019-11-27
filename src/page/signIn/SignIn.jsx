@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from "react-router-dom";
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -13,6 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 import Copyright from "../../components/Copyright";
+import { useAuth } from '../../hooks/useAuth';
 
 const useStyles = makeStyles(theme => ({
   '@global': {
@@ -40,7 +42,17 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function SignIn() {
+  const auth = useAuth()
   const classes = useStyles();
+  const history = useHistory()
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    console.log(`hai`)
+    auth.signIn("admin@mail.com", "admin")    
+    history.push('/admin')
+  }
+
 
   return (
     <Container component="main" maxWidth="xs">
@@ -84,6 +96,7 @@ export default function SignIn() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={handleSubmit}
           >
             Sign In
           </Button>

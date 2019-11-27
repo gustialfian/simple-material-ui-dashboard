@@ -5,13 +5,16 @@ import {
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 import { AppRouter } from "./Router";
+import { ProvideAuth } from "./hooks/useAuth";
 
 function App() {
   return (
-    <BrowserRouter>
-      <CssBaseline />
-      <AppRouter />
-    </BrowserRouter>
+    <ProvideAuth>
+      <BrowserRouter>
+        <CssBaseline />
+        <AppRouter />
+      </BrowserRouter>
+    </ProvideAuth>
   );
 }
 

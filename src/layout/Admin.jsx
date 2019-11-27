@@ -10,9 +10,11 @@ import Badge from '@material-ui/core/Badge';
 import Container from '@material-ui/core/Container';
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 import Sidebar from "./Sidebar";
 import Copyright from "../components/Copyright";
+import { useAuth } from '../hooks/useAuth';
 
 const drawerWidth = 240;
 
@@ -69,6 +71,12 @@ export default function Dashboard(props) {
     setOpen(false);
   };
 
+const auth = useAuth()
+const handleSignOut = (e) => {
+  console.log(`handleSignOut fire`)
+  auth.signOut()
+}
+
   return (
     <div className={classes.root}>
       <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
@@ -89,6 +97,11 @@ export default function Dashboard(props) {
             <Badge badgeContent={4} color="secondary">
               <NotificationsIcon />
             </Badge>
+          </IconButton>
+          <IconButton color="inherit"
+            onClick={handleSignOut}
+          >
+            <ExitToAppIcon />
           </IconButton>
         </Toolbar>
       </AppBar>
