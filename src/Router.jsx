@@ -19,34 +19,27 @@ import { useAuth } from "./hooks/useAuth"
 
 export function AppRouter() {
   const auth = useAuth()
-  console.log(`hai`)
-  console.log(auth.user)
   return (
     <Switch>
       {/* A <Switch> looks through its children <Route>s and
           renders the first one that matches the current URL. */}
-      {/* <Route path="/login">
-        <SignIn />
-      </Route> */}
-
       <Route path="/login"
-        render={() => auth.user ?
-          (
-            <Redirect to="/" />
-          ) : (
+        render={({ location }) =>
+          !auth.user ? (
             <SignIn />
-          )
-        }
-      />
-      <Route path="/"
-        render={() => auth.user ?
-          (
-            <DashboardRouter />
           ) : (
-            <Redirect to="/login" />
-          )
-        }
-      />
+              <Redirect
+                to={{
+                  pathname: "/",
+                  state: { from: location }
+                }}
+              />
+            )
+        }>
+      </Route>
+      <PrivateRoute path="/">
+        <DashboardRouter />
+      </PrivateRoute>
     </Switch>
   )
 }
@@ -83,5 +76,27 @@ export function DashboardRouter() {
         </Route>
       </Switch>
     </Admin>
+  );
+}
+
+function PrivateRoute({ children, ...rest }) {
+  const auth = useAuth()
+
+  return (
+    <Route
+      {...rest}
+      render={({ location }) =>
+        auth.user ? (
+          children
+        ) : (
+            <Redirect
+              to={{
+                pathname: "/login",
+                state: { from: location }
+              }}
+            />
+          )
+      }
+    />
   );
 }

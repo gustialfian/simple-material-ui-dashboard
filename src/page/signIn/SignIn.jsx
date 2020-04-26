@@ -48,7 +48,6 @@ export default function SignIn() {
 
   function handleSubmit(e) {
     e.preventDefault()
-    console.log(`hai`)
     auth.signIn("admin@mail.com", "admin")    
     history.push('/admin')
   }
